@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -14,7 +15,7 @@ import nudeltruppe.game.GameField;
 import nudeltruppe.utils.Log;
 
 
-public class GUI extends JDialog
+public class GUI extends JFrame
 {
 	
 	private static final long serialVersionUID = 1L;
