@@ -17,7 +17,7 @@ public class Console {
 
 		gf.dbg();
 
-		System.out.printf("Found %d Poops surrounding [%d, %d]", hf.GetHundehaufenInCloseProximityIndices(19, 0, gf), 0, 0);
+		System.out.printf("Found %d Poops surrounding [%d, %d]", hf.getHundehaufenInCloseProximityIndices(19, 0, gf), 0, 0);
 
 	}
 }

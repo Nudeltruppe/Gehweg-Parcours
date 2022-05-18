@@ -4,33 +4,33 @@ import nudeltruppe.game.GameField.FieldType;
 
 public class HundehaufenInCloseProximity extends GameLogic {
 	// Returns the Number of Hundehaufen found in close proximity
-	public int GetHundehaufenInCloseProximityIndices(int PositionX, int PositionY, GameField Field) {
+	public int getHundehaufenInCloseProximityIndices(int position_x, int position_y, GameField Field) {
 		int FoundPoops = 0;
-        int OffsetX1 = 1;
-        int OffsetX2 = 1;
-        int OffsetY1 = 1;
-        int OffsetY2 = 1;
+        int offsetX1 = 1;
+        int offsetX2 = 1;
+        int offsetY1 = 1;
+        int offsetY2 = 1;
 
-        if (PositionX == 0) {
-            OffsetX1 = 0;
-            OffsetX2 = 1;
-        } else if (PositionX == Field.getHeight() - 1) {
-            OffsetX1 = 1;
-            OffsetX2 = 0;
+        if (position_x == 0) {
+            offsetX1 = 0;
+            offsetX2 = 1;
+        } else if (position_x == Field.getHeight() - 1) {
+            offsetX1 = 1;
+            offsetX2 = 0;
         }
 
-        if (PositionY == 0) {
-            OffsetY1 = 0;
-            OffsetY2 = 1;
-        } else if (PositionY == Field.getWidth() - 1) {
-            OffsetY1 = 1;
-            OffsetY2 = 0;
+        if (position_y == 0) {
+            offsetY1 = 0;
+            offsetY2 = 1;
+        } else if (position_y == Field.getWidth() - 1) {
+            offsetY1 = 1;
+            offsetY2 = 0;
         }
 
 
-		for (int y = PositionY - OffsetY1; y <= PositionY + OffsetY2; y++) {
-			for (int x = PositionX - OffsetX1; x <= PositionX + OffsetX2; x++) {
-                if (x == PositionX && y == PositionY) continue;
+		for (int y = position_y - offsetY1; y <= position_y + offsetY2; y++) {
+			for (int x = position_x - offsetX1; x <= position_x + offsetX2; x++) {
+                if (x == position_x && y == position_y) continue;
 				if (Field.getFieldType(x, y) == FieldType.POOPED) {
                     FoundPoops++;
 				}
