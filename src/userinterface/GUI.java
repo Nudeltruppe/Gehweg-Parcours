@@ -1,12 +1,16 @@
 package userinterface;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.event.MouseInputAdapter;
 
 import nudeltruppe.game.GameField;
 
@@ -22,7 +26,7 @@ public class GUI extends JDialog
 	private final int poop_count = 20;
 
 	private final JPanel contentPanel = new JPanel();
-	private JButton[][] butons;
+	private JButton[][] buttons;
 
 	private GameField game_field;
 
@@ -57,15 +61,40 @@ public class GUI extends JDialog
 		contentPanel.setLayout(null);
 
 
-		butons = new JButton[width][height];
+		buttons = new JButton[width][height];
 		
 		for (int i = 0; i < width; i++) 
 		{
 			for (int k = 0;k < height;k++)
 			{
-				butons[i][k] = new JButton(" ");
-				butons[i][k].setBounds(i*button_size, k*button_size, button_size, button_size);
-				contentPanel.add(butons[i][k]);
+				buttons[i][k] = new JButton(" ");
+				buttons[i][k].setBounds(i*button_size, k*button_size, button_size, button_size);
+				contentPanel.add(buttons[i][k]);
+
+				buttons[i][k].addMouseListener(new MouseInputAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						int x = (int) ( ((JButton)e.getSource()).getX() / button_size);
+						int y = (int) ( ((JButton)e.getSource()).getY() / button_size);
+	
+						System.out.println("x: " + x + " y: " + y);
+
+						try {
+							if (e.getButton() == MouseEvent.BUTTON1)
+							{
+								game_field.setFlaggedForField(x, y, false);
+							}
+							else if (e.getButton() == MouseEvent.BUTTON3)
+							{
+								game_field.setFlaggedForField(x, y, true);
+							}
+						} catch (IllegalArgumentException ex) {
+							System.out.println("IllegalArgumentException: " + ex.getMessage());
+						}
+
+						update();
+					}
+				});
 			}
 		}
 
@@ -81,19 +110,19 @@ public class GUI extends JDialog
 				switch (game_field.getFieldType(i, k))
 				{
 					case EMPTY:
-						butons[i][k].setText(" ");
+						buttons[i][k].setText(" ");
 						break;
 					case FLAGGED:
-						butons[i][k].setText("F");
+						buttons[i][k].setText("F");
 						break;
 					case FAKE_FLAGGED:
-						butons[i][k].setText("f");
+						buttons[i][k].setText("f");
 						break;
 					case POOPED:
-						butons[i][k].setText("P");
+						buttons[i][k].setText("P");
 						break;
 					case CLEAN:
-						butons[i][k].setText("C");
+						buttons[i][k].setText("C");
 						break;
 				}
 			}
