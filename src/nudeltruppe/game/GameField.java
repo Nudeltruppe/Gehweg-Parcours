@@ -80,12 +80,16 @@ public class GameField {
 				game_field[x][y] = FieldType.POOPED;
 			} else if (game_field[x][y] == FieldType.FAKE_FLAGGED) {
 				game_field[x][y] = FieldType.EMPTY;
+			} else {
+				throw new IllegalArgumentException("Field is not flagged");
 			}
 		} else {
 			if (game_field[x][y] == FieldType.POOPED) {
 				game_field[x][y] = FieldType.FLAGGED;
 			} else if (game_field[x][y] == FieldType.EMPTY) {
 				game_field[x][y] = FieldType.FAKE_FLAGGED;
+			} else {
+				throw new IllegalArgumentException("Field is not empty");
 			}
 		}
 	}
