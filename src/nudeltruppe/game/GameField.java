@@ -89,4 +89,8 @@ public class GameField {
 			}
 		}
 	}
+
+	public FieldType getFieldType(int x, int y) {
+		return game_field[x][y];
+	}
 }
