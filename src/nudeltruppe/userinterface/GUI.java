@@ -90,7 +90,6 @@ public class GUI extends JFrame
 								game_field.setFlaggedForField(x, y, false);
 							} else if (e.getButton() == MouseEvent.BUTTON1) {
 								game_logic.checkForDeath(game_logic.player.getPosition(), game_field);
-								game_field.clearField(game_logic.player.getPosition());
 							}
 						}
 						catch (IllegalArgumentException ex)
