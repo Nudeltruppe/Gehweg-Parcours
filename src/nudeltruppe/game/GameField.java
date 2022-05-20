@@ -100,4 +100,9 @@ public class GameField {
 	{
 		return game_field[x][y];
 	}
+
+	public void setFieldType(int i, int j, FieldType pooped)
+	{
+		game_field[i][j] = pooped;
+	}
 }
