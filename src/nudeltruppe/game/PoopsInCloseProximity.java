@@ -1,5 +1,9 @@
 package nudeltruppe.game;
 
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
 import nudeltruppe.game.GameField.FieldType;
 
 public class PoopsInCloseProximity extends GameLogic {
@@ -52,5 +56,16 @@ public class PoopsInCloseProximity extends GameLogic {
 		}
 
 		return found_poops;
+	}
+
+	@Test
+	public void test()
+	{
+		GameField field = new GameField(3, 3);
+		field.setFieldType(0, 0, FieldType.POOPED);
+		field.setFieldType(1, 1, FieldType.POOPED);
+		field.setFieldType(2, 2, FieldType.POOPED);
+
+		assertEquals(2, getPoopsInCloseProximityIndices(1, 1, field));
 	}
 }

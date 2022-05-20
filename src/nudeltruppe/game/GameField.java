@@ -1,6 +1,11 @@
 package nudeltruppe.game;
 
-public class GameField {
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
+public class GameField
+{
 	public enum FieldType
 	{
 		EMPTY,
@@ -92,5 +97,10 @@ public class GameField {
 	public FieldType getFieldType(int x, int y)
 	{
 		return game_field[x][y];
+	}
+
+	public void setFieldType(int i, int j, FieldType pooped)
+	{
+		game_field[i][j] = pooped;
 	}
 }
