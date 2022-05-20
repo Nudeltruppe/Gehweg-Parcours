@@ -17,4 +17,9 @@ public class Player
 	{
 		return this.player_position;
 	}
+
+	public boolean getGameStatusAlive()
+	{
+		return this.game_status_alive;
+	}
 }
