@@ -1,5 +1,7 @@
 package nudeltruppe.game;
 
+import nudeltruppe.utils.Vector2D;
+
 public class GameField {
 	public enum FieldType
 	{
@@ -87,6 +89,11 @@ public class GameField {
 				throw new IllegalArgumentException("Field is not empty");
 			}
 		}
+	}
+
+	public void clearField(Vector2D<Integer> v)
+	{
+		game_field[v.x][v.y] = FieldType.CLEAN;
 	}
 
 	public FieldType getFieldType(int x, int y)

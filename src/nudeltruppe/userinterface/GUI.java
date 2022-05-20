@@ -12,6 +12,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.event.MouseInputAdapter;
 
 import nudeltruppe.game.GameField;
+import nudeltruppe.game.GameLogic;
 import nudeltruppe.utils.Log;
 
 
@@ -29,6 +30,7 @@ public class GUI extends JFrame
 	private JButton[][] buttons;
 
 	private GameField game_field;
+	private GameLogic game_logic;
 
 	
 	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException
@@ -50,6 +52,7 @@ public class GUI extends JFrame
 
 	public GUI()
 	{
+		game_logic = new GameLogic();
 		game_field = new GameField(width, height);
 		game_field.plantPoops(poop_count);
 
@@ -76,18 +79,18 @@ public class GUI extends JFrame
 					public void mouseClicked(MouseEvent e) {
 						int x = (int) ( ((JButton)e.getSource()).getX() / button_size);
 						int y = (int) ( ((JButton)e.getSource()).getY() / button_size);
+						game_logic.player.updatePosition(x, y);
 	
 						Log.log("x: " + x + " y: " + y);
 
 						try
 						{
-							if (e.getButton() == MouseEvent.BUTTON1)
+							if (e.getButton() == MouseEvent.BUTTON2)
 							{
 								game_field.setFlaggedForField(x, y, false);
-							}
-							else if (e.getButton() == MouseEvent.BUTTON3)
-							{
-								game_field.setFlaggedForField(x, y, true);
+							} else if (e.getButton() == MouseEvent.BUTTON1) {
+								game_logic.checkForDeath(game_logic.player.getPosition(), game_field);
+								game_field.clearField(game_logic.player.getPosition());
 							}
 						}
 						catch (IllegalArgumentException ex)

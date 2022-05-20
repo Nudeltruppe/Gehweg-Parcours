@@ -22,4 +22,9 @@ public class Player
 	{
 		return this.game_status_alive;
 	}
+
+	public void setGameStatusAlive(boolean b)
+	{
+		this.game_status_alive = b;
+	}
 }
