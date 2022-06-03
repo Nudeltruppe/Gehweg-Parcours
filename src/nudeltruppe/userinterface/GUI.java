@@ -1,11 +1,13 @@
 package nudeltruppe.userinterface;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -15,12 +17,11 @@ import nudeltruppe.game.GameField;
 import nudeltruppe.game.GameLogic;
 import nudeltruppe.utils.Log;
 
-
 public class GUI extends JFrame
 {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	private final int width = 14;
 	private final int height = 6;
 	private final int button_size = 50;
@@ -32,8 +33,9 @@ public class GUI extends JFrame
 	private GameField game_field;
 	private GameLogic game_logic;
 
-	
-	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException
+	public static void main(String[] args) throws ClassNotFoundException,
+			InstantiationException, IllegalAccessException,
+			UnsupportedLookAndFeelException
 	{
 		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
@@ -49,13 +51,12 @@ public class GUI extends JFrame
 		}
 	}
 
-
 	public GUI()
 	{
 		game_logic = new GameLogic();
 		game_field = new GameField(width, height);
 		game_field.plantPoops(poop_count);
-
+		
 
 		setBounds(0, 0, width * button_size, (height + 1) * button_size);
 		getContentPane().setLayout(new BorderLayout());
@@ -96,6 +97,14 @@ public class GUI extends JFrame
 						{
 							Log.log("IllegalArgumentException: " + ex.getMessage());
 						}
+						Component frame = null;
+						
+						
+						if(!game_logic.player.getGameStatusAlive())
+						{
+							JOptionPane.showMessageDialog(frame, "Sie haben Verloren");	
+						}
+						
 
 						update();
 					}
@@ -108,9 +117,9 @@ public class GUI extends JFrame
 
 	private void update()
 	{
-		for (int i = 0; i < width; i++) 
+		for (int i = 0; i < width; i++)
 		{
-			for (int k = 0;k < height;k++)
+			for (int k = 0; k < height; k++)
 			{
 				switch (game_field.getFieldType(i, k))
 				{
