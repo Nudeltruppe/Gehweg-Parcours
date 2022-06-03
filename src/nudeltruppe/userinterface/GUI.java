@@ -86,9 +86,9 @@ public class GUI extends JFrame
 
 						try
 						{
-							if (e.getButton() == MouseEvent.BUTTON2)
+							if (e.getButton() == MouseEvent.BUTTON3)
 							{
-								game_field.setFlaggedForField(x, y, false);
+								game_field.setFlaggedForField(x, y, true);
 							} else if (e.getButton() == MouseEvent.BUTTON1) {
 								game_logic.checkForDeath(game_logic.player.getPosition(), game_field);
 							}
@@ -127,13 +127,13 @@ public class GUI extends JFrame
 						buttons[i][k].setText(" ");
 						break;
 					case FLAGGED:
-						buttons[i][k].setText("F");
+						buttons[i][k].setText("🚩");
 						break;
 					case FAKE_FLAGGED:
-						buttons[i][k].setText("f");
+						buttons[i][k].setText("🚩");
 						break;
 					case POOPED:
-						buttons[i][k].setText("P");
+						buttons[i][k].setText("💩");
 						break;
 					case CLEAN:
 						buttons[i][k].setText(Integer.toString(game_logic.poops.getPoopsInCloseProximityIndices(i, k, game_field)));
