@@ -102,7 +102,8 @@ public class GUI extends JFrame
 						
 						if(!game_logic.player.getGameStatusAlive())
 						{
-							JOptionPane.showMessageDialog(frame, "Sie haben Verloren");	
+							JOptionPane.showMessageDialog(frame, "Sie haben Verloren");
+							System.exit(0);
 						}
 						
 
