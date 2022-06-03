@@ -127,7 +127,7 @@ public class GUI extends JFrame
 						buttons[i][k].setText("P");
 						break;
 					case CLEAN:
-						buttons[i][k].setText("C");
+						buttons[i][k].setText(Integer.toString(game_logic.poops.getPoopsInCloseProximityIndices(i, k, game_field)));
 						break;
 				}
 			}

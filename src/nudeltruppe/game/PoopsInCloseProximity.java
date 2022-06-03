@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import nudeltruppe.game.GameField.FieldType;
 
-public class PoopsInCloseProximity extends GameLogic {
+public class PoopsInCloseProximity {
 	// Returns the Number of poops found in close proximity
 	public int getPoopsInCloseProximityIndices(int position_x, int position_y, GameField field) {
 		int found_poops = 0;
@@ -21,7 +21,7 @@ public class PoopsInCloseProximity extends GameLogic {
 			offsetX1 = 0;
 			offsetX2 = 1;
 		}
-		else if (position_x == field.getHeight() - 1)
+		else if (position_x == field.getWidth() - 1)
 		{
 			offsetX1 = 1;
 			offsetX2 = 0;
@@ -32,7 +32,7 @@ public class PoopsInCloseProximity extends GameLogic {
 			offsetY1 = 0;
 			offsetY2 = 1;
 		}
-		else if (position_y == field.getWidth() - 1)
+		else if (position_y == field.getHeight() - 1)
 		{
 			offsetY1 = 1;
 			offsetY2 = 0;

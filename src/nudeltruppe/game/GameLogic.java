@@ -7,6 +7,7 @@ import nudeltruppe.utils.Vector2D;
 public class GameLogic
 {
 	public Player player = new Player();
+	public PoopsInCloseProximity poops = new PoopsInCloseProximity();
 
 	public void checkForDeath(Vector2D<Integer> v, GameField field)
 	{
