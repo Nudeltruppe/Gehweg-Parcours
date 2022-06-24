@@ -14,6 +14,8 @@ public class GameLogic
 		if (field.getField()[v.x][v.y].equals(FieldType.POOPED))
 		{
 			player.setGameStatusAlive(false);
+		} else if (field.getField()[v.x][v.y].equals(FieldType.FLAGGED)) {
+			player.setGameStatusAlive(false);
 		} else {
 			field.clearField(this.player.getPosition());
 		}
