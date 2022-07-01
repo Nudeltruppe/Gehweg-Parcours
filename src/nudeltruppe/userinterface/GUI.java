@@ -7,7 +7,6 @@ import java.awt.event.MouseEvent;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -25,7 +24,7 @@ public class GUI extends JFrame
 	private final int width = 14;
 	private final int height = 6;
 	private final int button_size = 50;
-	private final int poop_count = 20;
+	private final int poop_count = 1;
 
 	private final JPanel contentPanel = new JPanel();
 	private JButton[][] buttons;
@@ -33,7 +32,41 @@ public class GUI extends JFrame
 	private GameField game_field;
 	private GameLogic game_logic;
 
-	public static void main(String[] args) throws ClassNotFoundException,
+	private static Thread t;
+
+	public static void main(String[] args) throws InterruptedException {
+		while (true) {			 
+			t = new Thread() {
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					super.run();
+
+					try {
+						main_main();
+					} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+							| UnsupportedLookAndFeelException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+					
+				}
+			};
+
+			t.start();
+
+			t.join();
+			
+		}
+	}
+
+	public void restart() {
+		this.dispose();
+		t.stop();
+	}
+
+	public static void main_main() throws ClassNotFoundException,
 			InstantiationException, IllegalAccessException,
 			UnsupportedLookAndFeelException
 	{
@@ -49,6 +82,8 @@ public class GUI extends JFrame
 		{
 			e.printStackTrace();
 		}
+
+		while (true);
 	}
 
 	public GUI()
@@ -66,6 +101,8 @@ public class GUI extends JFrame
 
 
 		buttons = new JButton[width][height];
+
+		final GUI _this = this;
 		
 		for (int i = 0; i < width; i++) 
 		{
@@ -102,13 +139,12 @@ public class GUI extends JFrame
 						
 						if(!game_logic.player.getGameStatusAlive())
 						{
-							JOptionPane.showMessageDialog(frame, "Sie haben Verloren");
-							System.exit(0);
+							game_logic.handleDeath(_this);
 						}
-						
 
 						update();
 					}
+
 				});
 			}
 		}
@@ -118,6 +154,7 @@ public class GUI extends JFrame
 
 	private void update()
 	{
+		int flagged_count = 0;
 		for (int i = 0; i < width; i++)
 		{
 			for (int k = 0; k < height; k++)
@@ -128,6 +165,7 @@ public class GUI extends JFrame
 						buttons[i][k].setText(" ");
 						break;
 					case FLAGGED:
+						flagged_count++;
 						buttons[i][k].setText("🚩");
 						break;
 					case FAKE_FLAGGED:
@@ -141,6 +179,10 @@ public class GUI extends JFrame
 						break;
 				}
 			}
+		}
+
+		if (flagged_count == this.poop_count) {
+			game_logic.handleWon(this);
 		}
 	}
 }

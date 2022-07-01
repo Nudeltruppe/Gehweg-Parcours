@@ -1,7 +1,10 @@
 package nudeltruppe.game;
 
 import nudeltruppe.game.GameField.FieldType;
+import nudeltruppe.userinterface.GUI;
 import nudeltruppe.utils.Vector2D;
+import javax.swing.JOptionPane;
+import java.awt.Component;
 
 // Class for game logic
 public class GameLogic
@@ -19,5 +22,17 @@ public class GameLogic
 		} else {
 			field.clearField(this.player.getPosition());
 		}
+	}
+
+	public void handleDeath(GUI my_gui) {
+		Component frame = null;
+		JOptionPane.showMessageDialog(frame, "Sie haben verloren");
+		my_gui.restart();
+	}
+
+	public void handleWon(GUI my_gui) {
+		Component frame = null;
+		JOptionPane.showMessageDialog(frame, "Sie haben gewonnen!!!");
+		my_gui.restart();
 	}
 }
