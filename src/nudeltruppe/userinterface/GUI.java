@@ -3,6 +3,8 @@ package nudeltruppe.userinterface;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -39,7 +41,7 @@ public class GUI extends JFrame
 			t = new Thread() {
 				@Override
 				public void run() {
-					// TODO Auto-generated method stub
+					
 					super.run();
 
 					try {
@@ -72,18 +74,23 @@ public class GUI extends JFrame
 	{
 		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
+		GUI dialog;
+
 		try
 		{
-			GUI dialog = new GUI();
+			dialog = new GUI();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
+			return;
 		}
 
-		while (true);
+		while (true) {
+			
+		}
 	}
 
 	public GUI()
@@ -99,6 +106,46 @@ public class GUI extends JFrame
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 
+		addWindowListener(new WindowListener() {
+
+			@Override
+			public void windowActivated(WindowEvent arg0) {
+				Log.log("Window activated");
+			}
+
+			@Override
+			public void windowClosed(WindowEvent arg0) {
+				Log.log("Window closed");
+			}
+
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+				Log.log("Window closing");
+
+				// windowClosing() only gets called if the user clicks the exit button and not if we manually dispose the window
+				System.exit(0);
+			}
+
+			@Override
+			public void windowDeactivated(WindowEvent arg0) {
+				Log.log("Window deactivated");
+			}
+
+			@Override
+			public void windowDeiconified(WindowEvent arg0) {
+				Log.log("Window deiconified");
+			}
+
+			@Override
+			public void windowIconified(WindowEvent arg0) {
+				Log.log("Window iconified");
+			}
+
+			@Override
+			public void windowOpened(WindowEvent arg0) {
+				Log.log("Window opened");
+			}
+		});
 
 		buttons = new JButton[width][height];
 
