@@ -1,5 +1,6 @@
 package nudeltruppe.game;
 
+import nudeltruppe.utils.Log;
 import nudeltruppe.utils.Vector2D;
 
 public class GameField {
@@ -59,6 +60,7 @@ public class GameField {
 
 	public void setFlaggedForField(int x, int y, boolean flagged)
 	{
+		Log.log("setFlaggedForField: " + x + " " + y + " " + flagged);
 		if (!flagged)
 		{
 			if (game_field[x][y] == FieldType.FLAGGED)

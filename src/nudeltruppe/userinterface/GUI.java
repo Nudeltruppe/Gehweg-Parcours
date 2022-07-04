@@ -16,6 +16,8 @@ import javax.swing.event.MouseInputAdapter;
 
 import nudeltruppe.game.GameField;
 import nudeltruppe.game.GameLogic;
+import nudeltruppe.game.GameField.FieldType;
+import nudeltruppe.utils.ArgParser;
 import nudeltruppe.utils.Log;
 
 public class GUI extends JFrame
@@ -36,7 +38,30 @@ public class GUI extends JFrame
 
 	private static Thread t;
 
+	private static boolean noemoji = false;
+	private static boolean showpoops = false;
+
 	public static void main(String[] args) throws InterruptedException {
+		ArgParser parser = new ArgParser(args);
+		parser.parse();
+
+		if (parser.is_option("-noemoji")) {
+			noemoji = true;
+		}
+
+		if (parser.is_option("-showpoops")) {
+			showpoops = true;
+		}
+
+		if (parser.is_option("-help")) {
+			System.out.println("Usage: <prog> [options]");
+			System.out.println("Options:");
+			System.out.println("  -noemoji");
+			System.out.println("  -showpoops");
+			return;
+		}
+
+
 		while (true) {			 
 			t = new Thread() {
 				@Override
@@ -172,7 +197,11 @@ public class GUI extends JFrame
 						{
 							if (e.getButton() == MouseEvent.BUTTON3)
 							{
-								game_field.setFlaggedForField(x, y, true);
+								if (game_field.getFieldType(x, y) == FieldType.FLAGGED || game_field.getFieldType(x, y) == FieldType.FAKE_FLAGGED) {
+									game_field.setFlaggedForField(x, y, false);
+								} else {
+									game_field.setFlaggedForField(x, y, true);
+								}
 							} else if (e.getButton() == MouseEvent.BUTTON1) {
 								game_logic.checkForDeath(game_logic.player.getPosition(), game_field);
 							}
@@ -213,13 +242,13 @@ public class GUI extends JFrame
 						break;
 					case FLAGGED:
 						flagged_count++;
-						buttons[i][k].setText("🚩");
+						buttons[i][k].setText(noemoji ? "X" : "🚩");
 						break;
 					case FAKE_FLAGGED:
-						buttons[i][k].setText("🚩");
+						buttons[i][k].setText(noemoji ? "X" : "🚩");
 						break;
 					case POOPED:
-						buttons[i][k].setText("💩");
+						buttons[i][k].setText(showpoops ? (noemoji ? "P" : "💩") : " ");
 						break;
 					case CLEAN:
 						buttons[i][k].setText(Integer.toString(game_logic.poops.getPoopsInCloseProximityIndices(i, k, game_field)));
