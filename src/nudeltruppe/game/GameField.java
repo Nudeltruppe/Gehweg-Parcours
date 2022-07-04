@@ -1,6 +1,5 @@
 package nudeltruppe.game;
 
-import nudeltruppe.utils.Log;
 import nudeltruppe.utils.Vector2D;
 
 public class GameField {
@@ -27,17 +26,14 @@ public class GameField {
 		}
 	}
 
-	public void plantPoops(int amount)
+	public void plantPoops(int amount, int nop_x, int nop_y)
 	{
 		for (int i = 0; i < amount; i++) {
 			int x = (int) (Math.random() * game_field.length);
 			int y = (int) (Math.random() * game_field[0].length);
-			if (game_field[x][y] == FieldType.EMPTY)
-			{
+			if (game_field[x][y] == FieldType.EMPTY && !(x == nop_x && y == nop_y)) {
 				game_field[x][y] = FieldType.POOPED;
-			}
-			else
-			{
+			} else {
 				i--;
 			}
 		}
@@ -60,7 +56,6 @@ public class GameField {
 
 	public void setFlaggedForField(int x, int y, boolean flagged)
 	{
-		Log.log("setFlaggedForField: " + x + " " + y + " " + flagged);
 		if (!flagged)
 		{
 			if (game_field[x][y] == FieldType.FLAGGED)

@@ -14,7 +14,7 @@ public class Console {
 		Log.log("Width: " + gf.getWidth());
 		Log.log("Height: " + gf.getHeight());
 
-		gf.plantPoops(gf.getHeight() * gf.getWidth());
+		gf.plantPoops(gf.getHeight() * gf.getWidth(), -1, -1);
 
 		Log.log(String.format("Found %d Poops surrounding [%d, %d]", hf.getPoopsInCloseProximityIndices(14, 0, gf), 0, 0));
 

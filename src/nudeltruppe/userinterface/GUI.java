@@ -41,6 +41,8 @@ public class GUI extends JFrame
 	private static boolean noemoji = false;
 	private static boolean showpoops = false;
 
+	private boolean first_move = true;
+
 	public static void main(String[] args) throws InterruptedException {
 		ArgParser parser = new ArgParser(args);
 		parser.parse();
@@ -122,7 +124,6 @@ public class GUI extends JFrame
 	{
 		game_logic = new GameLogic();
 		game_field = new GameField(width, height);
-		game_field.plantPoops(poop_count);
 		
 
 		setBounds(0, 0, width * button_size, (height + 1) * button_size);
@@ -216,6 +217,11 @@ public class GUI extends JFrame
 						if(!game_logic.player.getGameStatusAlive())
 						{
 							game_logic.handleDeath(_this);
+						}
+
+						if (first_move) {
+							game_field.plantPoops(poop_count, x, y);
+							first_move = false;
 						}
 
 						update();
