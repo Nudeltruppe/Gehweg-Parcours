@@ -33,10 +33,13 @@ public class GameLogic
 		new Thread() {
 			@Override
 			public void run() {
-				try {
-					Thread.sleep(3000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
+				for (int i = 3; i > 0; i--) {
+					my_gui.setTitle(GUI.window_name + " | Restart in " + i + " seconds");
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 				}
 				my_gui.restart();
 			}

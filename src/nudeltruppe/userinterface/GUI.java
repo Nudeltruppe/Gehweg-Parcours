@@ -2,6 +2,8 @@ package nudeltruppe.userinterface;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -9,6 +11,10 @@ import java.awt.event.WindowListener;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -41,6 +47,8 @@ public class GUI extends JFrame
 	private static boolean showpoops = false;
 	private boolean showpoops2 = false;
 	private boolean first_move = true;
+
+	public static final String window_name = "Gehweg Parcour";
 
 	public static void main(String[] args) throws InterruptedException {
 		ArgParser parser = new ArgParser(args);
@@ -149,7 +157,6 @@ public class GUI extends JFrame
 	{
 		game_logic = new GameLogic();
 		game_field = new GameField(width, height);
-		
 
 		setBounds(0, 0, width * button_size, (height + 1) * button_size);
 		getContentPane().setLayout(new BorderLayout());
@@ -226,7 +233,11 @@ public class GUI extends JFrame
 								if (game_field.getFieldType(x, y) == FieldType.FLAGGED || game_field.getFieldType(x, y) == FieldType.FAKE_FLAGGED) {
 									game_field.setFlaggedForField(x, y, false);
 								} else {
-									game_field.setFlaggedForField(x, y, true);
+									if (game_field.countFlags() < poop_count) {
+										game_field.setFlaggedForField(x, y, true);
+									} else {
+										JOptionPane.showMessageDialog(_this, "You have already placed all your flags!");
+									}
 								}
 							} else if (e.getButton() == MouseEvent.BUTTON1) {
 								game_logic.checkForDeath(game_logic.player.getPosition(), game_field);
@@ -255,6 +266,48 @@ public class GUI extends JFrame
 				});
 			}
 		}
+
+
+		JMenuBar menuBar = new JMenuBar();
+
+		JMenu gameMenu = new JMenu("Game");
+
+		JMenuItem restartMenuItem = new JMenuItem("Restart");	
+		restartMenuItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				restart();
+			}
+		});
+
+		gameMenu.add(restartMenuItem);	
+
+		JMenu debugMenu = new JMenu("Debug");
+		JMenuItem toggleShowPoopsMenuItem = new JMenuItem("Toggle show poops");
+		toggleShowPoopsMenuItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				showpoops = !showpoops;
+				update();
+			}
+		});
+
+		JMenuItem toggleNoEmojiMenuItem = new JMenuItem("Toggle no emoji");
+		toggleNoEmojiMenuItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				noemoji = !noemoji;
+				update();
+			}
+		});
+
+		debugMenu.add(toggleShowPoopsMenuItem);
+		debugMenu.add(toggleNoEmojiMenuItem);
+
+		menuBar.add(gameMenu);
+		menuBar.add(debugMenu);
+
+		setJMenuBar(menuBar);
 
 		update();
 	}
@@ -291,5 +344,7 @@ public class GUI extends JFrame
 		if (flagged_count == this.poop_count) {
 			game_logic.handleWon(this);
 		}
+
+		setTitle(window_name + " | Used " + game_field.countFlags() + " / " + poop_count + " flags");
 	}
 }
