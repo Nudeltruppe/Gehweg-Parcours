@@ -49,7 +49,7 @@ public class GUI extends JFrame
 	private boolean showpoops2 = false;
 	private boolean first_move = true;
 
-	private static String window_name = "Gehweg Parcour";
+	public static final String window_name = "Gehweg Parcour";
 
 	public static void main(String[] args) throws InterruptedException {
 		ArgParser parser = new ArgParser(args);
