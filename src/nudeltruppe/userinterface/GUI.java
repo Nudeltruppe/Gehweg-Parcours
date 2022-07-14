@@ -284,13 +284,24 @@ public class GUI extends JFrame
 		settingsMenu.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				try {
-					MenuScreenGUI.main(new String[] {});
-				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-						| UnsupportedLookAndFeelException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				final SettingsScreenGUI dialog = new SettingsScreenGUI();
+				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				dialog.setVisible(true);
+
+				new Thread() {
+					public void run() {
+						while (!dialog.data_ready) {
+							Thread.yield();
+						};
+						
+						Log.log("Data ready");
+						GUI.width = Integer.parseInt(dialog.size_x);
+						GUI.height = Integer.parseInt(dialog.size_y);
+						GUI.poop_count = Integer.parseInt(dialog.poop_count);
+						restart();
+					};
+				}.start();
+
 			}
 		});
 
