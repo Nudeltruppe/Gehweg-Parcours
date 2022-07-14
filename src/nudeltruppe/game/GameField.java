@@ -88,6 +88,19 @@ public class GameField {
 		}
 	}
 
+	public int countFlags() {
+		int count = 0;
+		for (int i = 0; i < game_field.length; i++) {
+			for (int j = 0; j < game_field[0].length; j++) {
+				if (game_field[i][j] == FieldType.FLAGGED || game_field[i][j] == FieldType.FAKE_FLAGGED) {
+					count++;
+				}
+			}
+		}
+
+		return count;
+	}
+
 	public void clearField(Vector2D<Integer> v)
 	{
 		game_field[v.x][v.y] = FieldType.CLEAN;

@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -47,6 +48,8 @@ public class GUI extends JFrame
 	private static boolean showpoops = false;
 	private boolean showpoops2 = false;
 	private boolean first_move = true;
+
+	private static String window_name = "Gehweg Parcour";
 
 	public static void main(String[] args) throws InterruptedException {
 		ArgParser parser = new ArgParser(args);
@@ -231,7 +234,11 @@ public class GUI extends JFrame
 								if (game_field.getFieldType(x, y) == FieldType.FLAGGED || game_field.getFieldType(x, y) == FieldType.FAKE_FLAGGED) {
 									game_field.setFlaggedForField(x, y, false);
 								} else {
-									game_field.setFlaggedForField(x, y, true);
+									if (game_field.countFlags() < poop_count) {
+										game_field.setFlaggedForField(x, y, true);
+									} else {
+										JOptionPane.showMessageDialog(_this, "You have already placed all your flags!");
+									}
 								}
 							} else if (e.getButton() == MouseEvent.BUTTON1) {
 								game_logic.checkForDeath(game_logic.player.getPosition(), game_field);
@@ -313,5 +320,7 @@ public class GUI extends JFrame
 		if (flagged_count == this.poop_count) {
 			game_logic.handleWon(this);
 		}
+
+		setTitle(window_name + " | Used " + game_field.countFlags() + " / " + poop_count + " flags");
 	}
 }
