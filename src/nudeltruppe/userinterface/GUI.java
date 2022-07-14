@@ -2,6 +2,8 @@ package nudeltruppe.userinterface;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -9,6 +11,9 @@ import java.awt.event.WindowListener;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -150,7 +155,6 @@ public class GUI extends JFrame
 	{
 		game_logic = new GameLogic();
 		game_field = new GameField(width, height);
-		
 
 		setBounds(0, 0, width * button_size, (height + 1) * button_size);
 		getContentPane().setLayout(new BorderLayout());
@@ -256,6 +260,23 @@ public class GUI extends JFrame
 				});
 			}
 		}
+
+
+		JMenuBar menuBar = new JMenuBar();
+
+		JMenu gameMenu = new JMenu("Game");
+		JMenuItem restartMenuItem = new JMenuItem("Restart");	
+		restartMenuItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				restart();
+			}
+		});
+
+		gameMenu.add(restartMenuItem);	
+		menuBar.add(gameMenu);
+
+		setJMenuBar(menuBar);
 
 		update();
 	}
