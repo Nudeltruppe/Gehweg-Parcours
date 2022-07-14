@@ -272,6 +272,7 @@ public class GUI extends JFrame
 		JMenuBar menuBar = new JMenuBar();
 
 		JMenu gameMenu = new JMenu("Game");
+
 		JMenuItem restartMenuItem = new JMenuItem("Restart");	
 		restartMenuItem.addActionListener(new ActionListener() {
 			@Override
@@ -281,7 +282,31 @@ public class GUI extends JFrame
 		});
 
 		gameMenu.add(restartMenuItem);	
+
+		JMenu debugMenu = new JMenu("Debug");
+		JMenuItem toggleShowPoopsMenuItem = new JMenuItem("Toggle show poops");
+		toggleShowPoopsMenuItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				showpoops = !showpoops;
+				update();
+			}
+		});
+
+		JMenuItem toggleNoEmojiMenuItem = new JMenuItem("Toggle no emoji");
+		toggleNoEmojiMenuItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				noemoji = !noemoji;
+				update();
+			}
+		});
+
+		debugMenu.add(toggleShowPoopsMenuItem);
+		debugMenu.add(toggleNoEmojiMenuItem);
+
 		menuBar.add(gameMenu);
+		menuBar.add(debugMenu);
 
 		setJMenuBar(menuBar);
 
