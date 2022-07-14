@@ -22,7 +22,6 @@ import nudeltruppe.utils.Log;
 
 public class GUI extends JFrame
 {
-
 	private static final long serialVersionUID = 1L;
 
 	private static int width = 14;

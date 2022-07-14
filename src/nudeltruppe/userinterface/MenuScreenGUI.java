@@ -28,6 +28,9 @@ import nudeltruppe.utils.Log;
 
 public class MenuScreenGUI extends JFrame {
     private final JPanel contentPanel = new JPanel();
+	public String poop_count;
+	public String size_x;
+	public String size_y;
 
     public MenuScreenGUI() {
 		setBounds(0, 0, 420, 420);
@@ -76,40 +79,51 @@ public class MenuScreenGUI extends JFrame {
 				Log.log("Window opened");
 			}
 		});
+        
+        JButton play_button = new JButton("Play!");
+        play_button.setBounds((420/2)-50, 420-100, 100, 50);
+        contentPanel.add(play_button);
 
-		// platten size
-		JLabel platten_size_label = new JLabel("Anzahl der Platten");
-		platten_size_label.setBounds(10, 10, 250, 50);
-		contentPanel.add(platten_size_label);
+		// platten size x
+		final JLabel platten_size_label_x = new JLabel("Anzahl der Platten (x)");
+		platten_size_label_x.setBounds(10, 10, 250, 50);
+		contentPanel.add(platten_size_label_x);
 
-		final JTextField platten_size = new JTextField("14 x 6");
-		platten_size.setBounds(8, 45, 50, 25);
-		contentPanel.add(platten_size);
+		final JTextField platten_size_x = new JTextField("16");
+		platten_size_x.setBounds(8, 45, 50, 25);
+		contentPanel.add(platten_size_x);
 
+		// platten size y
+		final JLabel platten_size_label_y = new JLabel("Anzahl der Platten (y)");
+		platten_size_label_y.setBounds(10, 100, 250, 50);
+		contentPanel.add(platten_size_label_y);
+		
+		final JTextField platten_size_y = new JTextField("6");
+		platten_size_y.setBounds(8, 135, 50, 25);
+		contentPanel.add(platten_size_y);
+		
 		// poops
-		JLabel poop_count_label = new JLabel("Anzahl der Hundehaufen");
-		poop_count_label.setBounds(10, 100, 250, 50);
+		final JLabel poop_count_label = new JLabel("Anzahl der Hundehaufen");
+		poop_count_label.setBounds(10, 200, 250, 50);
 		contentPanel.add(poop_count_label);
 
 		final JTextField poop_count = new JTextField("20");
-		poop_count.setBounds(8, 135, 50, 25);
+		poop_count.setBounds(8, 250, 50, 25);
 		contentPanel.add(poop_count);
 
-		JButton play_button = new JButton("Play!");
-        play_button.setBounds((420/2)-50, 420-100, 100, 50);
 		play_button.addActionListener(new ActionListener() {
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				final String[] args = new String[] {
-					"-width=" + platten_size.getText().split("x")[0].replace(" ", ""),
-					"-height=" + platten_size.getText().split("x")[1].replace(" ", ""),
-					"-poopcount=" + poop_count.getText()
-				};
+				MenuScreenGUI.this.poop_count = poop_count.getText();
+				MenuScreenGUI.this.size_x = platten_size_x.getText();
+				MenuScreenGUI.this.size_y = platten_size_y.getText();
 
+				// TODO Auto-generated method stub
 				new Thread() {
 					public void run() {
 						try {
-							GUI.main(args);
+							GUI.main(new String[] {"-width=" + size_x, "-height=" + size_y, "-poopcount=" + MenuScreenGUI.this.poop_count});
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -120,7 +134,6 @@ public class MenuScreenGUI extends JFrame {
 			}
 			
 		});
-        contentPanel.add(play_button);
     }
 
     public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
