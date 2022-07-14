@@ -272,7 +272,8 @@ public class GUI extends JFrame
 
 		JMenu gameMenu = new JMenu("Game");
 
-		JMenuItem restartMenuItem = new JMenuItem("Restart");	
+		JMenuItem restartMenuItem = new JMenuItem("Restart");
+		JMenuItem settingsMenu = new JMenuItem("Settings");
 		restartMenuItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -280,7 +281,21 @@ public class GUI extends JFrame
 			}
 		});
 
-		gameMenu.add(restartMenuItem);	
+		settingsMenu.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					MenuScreenGUI.main(new String[] {});
+				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+						| UnsupportedLookAndFeelException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+
+		gameMenu.add(restartMenuItem);
+		gameMenu.add(settingsMenu);
 
 		JMenu debugMenu = new JMenu("Debug");
 		JMenuItem toggleShowPoopsMenuItem = new JMenuItem("Toggle show poops");
