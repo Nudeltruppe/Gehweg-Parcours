@@ -1,13 +1,13 @@
 package nudeltruppe.utils;
 
-import static org.junit.Assert.assertEquals;
+// import static org.junit.Assert.assertEquals;
 
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
 
-import org.junit.Test;
+// import org.junit.Test;
 
 public class FileUtils {
 	public static void writeFile(String file_name, String file_contents) throws IOException
@@ -41,10 +41,10 @@ public class FileUtils {
 		return out.toString();
 	}
 
-	@Test
-	public void test() throws IOException
-	{
-		FileUtils.writeFile("test.txt", "test");
-		assertEquals("test", FileUtils.readFile("test.txt"));
-	}
+	// @Test
+	// public void test() throws IOException
+	// {
+	// 	FileUtils.writeFile("test.txt", "test");
+	// 	assertEquals("test", FileUtils.readFile("test.txt"));
+	// }
 }
