@@ -25,10 +25,10 @@ public class GUI extends JFrame
 
 	private static final long serialVersionUID = 1L;
 
-	private final int width = 14;
-	private final int height = 6;
-	private final int button_size = 50;
-	private final int poop_count = 1;
+	private static int width = 14;
+	private static int height = 6;
+	private static final int button_size = 50;
+	private static int poop_count = 20;
 
 	private final JPanel contentPanel = new JPanel();
 	private JButton[][] buttons;
@@ -40,7 +40,7 @@ public class GUI extends JFrame
 
 	private static boolean noemoji = false;
 	private static boolean showpoops = false;
-
+	private boolean showpoops2 = false;
 	private boolean first_move = true;
 
 	public static void main(String[] args) throws InterruptedException {
@@ -55,11 +55,33 @@ public class GUI extends JFrame
 			showpoops = true;
 		}
 
+		if (parser.is_option("-width")) {
+			String width_s = parser.consume_option("-width");
+			width = Integer.parseInt(width_s);
+			Log.log("Width: " + width);
+		}
+
+		if (parser.is_option("-height")) {
+			String height_s = parser.consume_option("-height");
+			height = Integer.parseInt(height_s);
+			Log.log("Height: " + height);
+		}
+
+		if (parser.is_option("-poopcount")) {
+			String poop_count_s = parser.consume_option("-poopcount");
+			poop_count = Integer.parseInt(poop_count_s);
+			Log.log("Poop count: " + poop_count);
+		}
+
 		if (parser.is_option("-help")) {
 			System.out.println("Usage: <prog> [options]");
 			System.out.println("Options:");
 			System.out.println("  -noemoji");
 			System.out.println("  -showpoops");
+			System.out.println("  -width=<width>");
+			System.out.println("  -height=<height>");
+			System.out.println("  -poopcount=<poopcount>");
+			System.out.println("  -help");
 			return;
 		}
 
@@ -93,6 +115,10 @@ public class GUI extends JFrame
 	public void restart() {
 		this.dispose();
 		t.stop();
+	}
+
+	public void setShowPoops(boolean showpoops) {
+		this.showpoops2 = showpoops;
 	}
 
 	public static void main_main() throws ClassNotFoundException,
@@ -254,7 +280,7 @@ public class GUI extends JFrame
 						buttons[i][k].setText(noemoji ? "X" : "🚩");
 						break;
 					case POOPED:
-						buttons[i][k].setText(showpoops ? (noemoji ? "P" : "💩") : " ");
+						buttons[i][k].setText(showpoops || showpoops2 ? (noemoji ? "P" : "💩") : " ");
 						break;
 					case CLEAN:
 						buttons[i][k].setText(Integer.toString(game_logic.poops.getPoopsInCloseProximityIndices(i, k, game_field)));

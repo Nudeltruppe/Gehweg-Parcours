@@ -76,18 +76,40 @@ public class MenuScreenGUI extends JFrame {
 				Log.log("Window opened");
 			}
 		});
-        
-        JButton play_button = new JButton("Play!");
+
+		// platten size
+		JLabel platten_size_label = new JLabel("Anzahl der Platten");
+		platten_size_label.setBounds(10, 10, 250, 50);
+		contentPanel.add(platten_size_label);
+
+		final JTextField platten_size = new JTextField("14 x 6");
+		platten_size.setBounds(8, 45, 50, 25);
+		contentPanel.add(platten_size);
+
+		// poops
+		JLabel poop_count_label = new JLabel("Anzahl der Hundehaufen");
+		poop_count_label.setBounds(10, 100, 250, 50);
+		contentPanel.add(poop_count_label);
+
+		final JTextField poop_count = new JTextField("20");
+		poop_count.setBounds(8, 135, 50, 25);
+		contentPanel.add(poop_count);
+
+		JButton play_button = new JButton("Play!");
         play_button.setBounds((420/2)-50, 420-100, 100, 50);
 		play_button.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				final String[] args = new String[] {
+					"-width=" + platten_size.getText().split("x")[0].replace(" ", ""),
+					"-height=" + platten_size.getText().split("x")[1].replace(" ", ""),
+					"-poopcount=" + poop_count.getText()
+				};
+
 				new Thread() {
 					public void run() {
 						try {
-							GUI.main(new String[] {});
+							GUI.main(args);
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -99,24 +121,6 @@ public class MenuScreenGUI extends JFrame {
 			
 		});
         contentPanel.add(play_button);
-
-		// platten size
-		JLabel platten_size_label = new JLabel("Anzahl der Platten");
-		platten_size_label.setBounds(10, 10, 250, 50);
-		contentPanel.add(platten_size_label);
-
-		JTextField platten_size = new JTextField("16 x 4");
-		platten_size.setBounds(8, 45, 50, 25);
-		contentPanel.add(platten_size);
-
-		// poops
-		JLabel poop_count_label = new JLabel("Anzahl der Hundehaufen");
-		poop_count_label.setBounds(10, 100, 250, 50);
-		contentPanel.add(poop_count_label);
-
-		JTextField poop_count = new JTextField("20");
-		poop_count.setBounds(8, 135, 50, 25);
-		contentPanel.add(poop_count);
     }
 
     public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {

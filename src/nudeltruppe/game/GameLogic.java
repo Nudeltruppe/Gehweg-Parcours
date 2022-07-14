@@ -24,10 +24,23 @@ public class GameLogic
 		}
 	}
 
-	public void handleDeath(GUI my_gui) {
+	public void handleDeath(final GUI my_gui) {
 		Component frame = null;
 		JOptionPane.showMessageDialog(frame, "Sie haben verloren");
-		my_gui.restart();
+
+		my_gui.setShowPoops(true);
+
+		new Thread() {
+			@Override
+			public void run() {
+				try {
+					Thread.sleep(3000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				my_gui.restart();
+			}
+		}.start();
 	}
 
 	public void handleWon(GUI my_gui) {
