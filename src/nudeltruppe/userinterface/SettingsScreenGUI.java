@@ -8,11 +8,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
+import javax.script.ScriptContext;
 import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
@@ -120,6 +122,19 @@ public class SettingsScreenGUI extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if (SettingsScreenGUI.this.poop_count.startsWith("0") || SettingsScreenGUI.this.poop_count.startsWith("-")) {
+					JOptionPane.showMessageDialog(null, "Value is 0 or negative");
+					return;
+				}
+				if (SettingsScreenGUI.this.size_x.startsWith("0") || SettingsScreenGUI.this.size_x.startsWith("-")) {
+					JOptionPane.showMessageDialog(null, "Value is 0 or negative");
+					return;
+				}
+				if (SettingsScreenGUI.this.size_y.startsWith("0") || SettingsScreenGUI.this.size_y.startsWith("-")) {
+					JOptionPane.showMessageDialog(null, "Value is 0 or negative");
+					return;
+				}
+
 				dispose();
 			}
 			

@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
@@ -118,6 +119,19 @@ public class MenuScreenGUI extends JFrame {
 				MenuScreenGUI.this.poop_count = poop_count.getText();
 				MenuScreenGUI.this.size_x = platten_size_x.getText();
 				MenuScreenGUI.this.size_y = platten_size_y.getText();
+
+				if (MenuScreenGUI.this.poop_count.startsWith("0") || MenuScreenGUI.this.poop_count.startsWith("-")) {
+					JOptionPane.showMessageDialog(null, "Value is 0 or negative");
+					return;
+				}
+				if (MenuScreenGUI.this.size_x.startsWith("0") || MenuScreenGUI.this.size_x.startsWith("-")) {
+					JOptionPane.showMessageDialog(null, "Value is 0 or negative");
+					return;
+				}
+				if (MenuScreenGUI.this.size_y.startsWith("0") || MenuScreenGUI.this.size_y.startsWith("-")) {
+					JOptionPane.showMessageDialog(null, "Value is 0 or negative");
+					return;
+				}
 
 				// TODO Auto-generated method stub
 				new Thread() {
