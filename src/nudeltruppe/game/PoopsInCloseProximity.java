@@ -48,7 +48,7 @@ public class PoopsInCloseProximity {
 					continue;
 				}
 		
-				if (field.getFieldType(x, y) == FieldType.POOPED)
+				if (field.getFieldType(x, y) == FieldType.POOPED || field.getFieldType(x, y) == FieldType.FLAGGED)
 				{
 					found_poops++;
 				}
