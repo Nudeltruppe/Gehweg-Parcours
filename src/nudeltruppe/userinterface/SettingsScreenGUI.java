@@ -89,7 +89,24 @@ public class SettingsScreenGUI extends JFrame {
 				SettingsScreenGUI.this.size_x = platten_size_x.getText();
 				SettingsScreenGUI.this.size_y = platten_size_y.getText();
 
+				if (SettingsScreenGUI.this.poop_count.startsWith("0") || SettingsScreenGUI.this.poop_count.startsWith("-")) {
+					JOptionPane.showMessageDialog(null, "Value is 0 or negative");
+					SettingsScreenGUI.this.poop_count = "20";
+					return;
+				}
+				if (SettingsScreenGUI.this.size_x.startsWith("0") || SettingsScreenGUI.this.size_x.startsWith("-")) {
+					JOptionPane.showMessageDialog(null, "Value is 0 or negative");
+					SettingsScreenGUI.this.size_x = "16";
+					return;
+				}
+				if (SettingsScreenGUI.this.size_y.startsWith("0") || SettingsScreenGUI.this.size_y.startsWith("-")) {
+					JOptionPane.showMessageDialog(null, "Value is 0 or negative");
+					SettingsScreenGUI.this.size_y = "6";
+					return;
+				}
+
 				SettingsScreenGUI.this.data_ready = true;
+
 			}
 
 			@Override
@@ -118,23 +135,11 @@ public class SettingsScreenGUI extends JFrame {
 			}
 		});
 
+		final SettingsScreenGUI _this = this;
 		play_button.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (SettingsScreenGUI.this.poop_count.startsWith("0") || SettingsScreenGUI.this.poop_count.startsWith("-")) {
-					JOptionPane.showMessageDialog(null, "Value is 0 or negative");
-					return;
-				}
-				if (SettingsScreenGUI.this.size_x.startsWith("0") || SettingsScreenGUI.this.size_x.startsWith("-")) {
-					JOptionPane.showMessageDialog(null, "Value is 0 or negative");
-					return;
-				}
-				if (SettingsScreenGUI.this.size_y.startsWith("0") || SettingsScreenGUI.this.size_y.startsWith("-")) {
-					JOptionPane.showMessageDialog(null, "Value is 0 or negative");
-					return;
-				}
-
 				dispose();
 			}
 			
